@@ -1,0 +1,24 @@
+version: 2
+
+updates:
+  # Keep GitHub Actions used by the CI workflow up to date.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "ci"
+
+  # Keep Python development and test dependencies up to date.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
