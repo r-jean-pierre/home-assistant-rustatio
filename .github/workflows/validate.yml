@@ -13,7 +13,7 @@ permissions:
 jobs:
   tests:
     name: Tests (Home Assistant 2026.9.4)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -40,7 +40,7 @@ jobs:
   future-home-assistant:
     name: Future compatibility (latest test harness)
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     continue-on-error: true
     steps:
       - name: Check out repository
@@ -62,7 +62,7 @@ jobs:
 
   hassfest:
     name: Hassfest
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
 
   hacs:
     name: HACS
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions: {}
     steps:
       - name: HACS validation
