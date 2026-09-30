@@ -180,6 +180,10 @@ async def test_reconfigure(
         CONF_TOKEN: "new-token",
     }
 
+    await hass.async_block_till_done()
+    assert await hass.config_entries.async_unload(mock_config_entry.entry_id)
+    await hass.async_block_till_done()
+
 
 async def test_reconfigure_rejects_duplicate_server(
     hass: HomeAssistant,
@@ -246,6 +250,10 @@ async def test_reauth_success(
     assert result["reason"] == "reauth_successful"
     assert mock_config_entry.data[CONF_TOKEN] == "replacement-token"
 
+    await hass.async_block_till_done()
+    assert await hass.config_entries.async_unload(mock_config_entry.entry_id)
+    await hass.async_block_till_done()
+
 
 async def test_reauth_recovers_from_invalid_token(
     hass: HomeAssistant,
@@ -284,3 +292,7 @@ async def test_reauth_recovers_from_invalid_token(
     assert result["type"] is FlowResultType.ABORT
     assert result["reason"] == "reauth_successful"
     assert mock_config_entry.data[CONF_TOKEN] == ""
+
+    await hass.async_block_till_done()
+    assert await hass.config_entries.async_unload(mock_config_entry.entry_id)
+    await hass.async_block_till_done()
