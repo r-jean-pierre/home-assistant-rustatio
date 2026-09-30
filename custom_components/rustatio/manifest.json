@@ -1,0 +1,14 @@
+{
+  "domain": "rustatio",
+  "name": "Rustatio",
+  "version": "1.0.0",
+  "codeowners": [
+    "@r-jean-pierre"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/r-jean-pierre/home-assistant-rustatio#readme",
+  "issue_tracker": "https://github.com/r-jean-pierre/home-assistant-rustatio/issues",
+  "integration_type": "service",
+  "iot_class": "local_polling",
+  "requirements": []
+}

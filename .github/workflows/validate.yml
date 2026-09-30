@@ -1,0 +1,81 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Tests (Home Assistant 2026.9.4)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements_test.txt
+
+      - name: Install test dependencies
+        run: python -m pip install -r requirements_test.txt
+
+      - name: Run tests with coverage
+        run: >
+          pytest
+          --cov=custom_components.rustatio
+          --cov-report=term-missing
+          --cov-report=xml
+          --cov-fail-under=90
+          -vv
+
+  future-home-assistant:
+    name: Future compatibility (latest test harness)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install latest Home Assistant custom-component test harness
+        run: >
+          python -m pip install --upgrade
+          pytest-homeassistant-custom-component
+          pytest-cov
+
+      - name: Test against the latest available Home Assistant harness
+        run: pytest -q
+
+  hassfest:
+    name: Hassfest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Hassfest validation
+        uses: home-assistant/actions/hassfest@master
+
+  hacs:
+    name: HACS
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: HACS validation
+        uses: hacs/action@main
+        with:
+          category: integration

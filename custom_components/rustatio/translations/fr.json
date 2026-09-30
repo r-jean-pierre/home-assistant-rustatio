@@ -1,0 +1,85 @@
+{
+  "title": "Rustatio",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connexion à Rustatio",
+        "description": "Connecte Home Assistant à un serveur Rustatio. L’URL proposée cible l’app Rustatio locale de Home Assistant.",
+        "data": {
+          "base_url": "URL Rustatio",
+          "token": "Jeton API (optionnel)"
+        },
+        "data_description": {
+          "base_url": "URL de base du serveur Rustatio, sans /api.",
+          "token": "Jeton Bearer. Laisser vide si AUTH_TOKEN n’est pas activé dans Rustatio."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigurer Rustatio",
+        "description": "Modifie l’URL du serveur Rustatio ou son jeton API.",
+        "data": {
+          "base_url": "URL Rustatio",
+          "token": "Jeton API (optionnel)"
+        },
+        "data_description": {
+          "base_url": "URL de base du serveur Rustatio, sans /api.",
+          "token": "Jeton Bearer. Laisser vide si AUTH_TOKEN n’est pas activé dans Rustatio."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Mettre à jour l’authentification Rustatio",
+        "description": "Rustatio a refusé le jeton API configuré. Saisis un jeton valide, ou laisse le champ vide si AUTH_TOKEN a été désactivé dans Rustatio.",
+        "data": {
+          "token": "Jeton API (optionnel)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossible de joindre Rustatio.",
+      "invalid_auth": "Le jeton API a été refusé par Rustatio.",
+      "invalid_response": "Rustatio a renvoyé une réponse API inattendue.",
+      "unknown": "Erreur inattendue."
+    },
+    "abort": {
+      "already_configured": "Ce serveur Rustatio est déjà configuré.",
+      "reauth_successful": "L’authentification Rustatio a été mise à jour.",
+      "reconfigure_successful": "La configuration Rustatio a été mise à jour."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "managed_torrents": {
+        "name": "Torrents gérés"
+      },
+      "running_torrents": {
+        "name": "Torrents actifs"
+      },
+      "torrents_with_tracker_errors": {
+        "name": "Torrents avec erreur tracker"
+      },
+      "torrent_files": {
+        "name": "Fichiers torrent dans le dossier surveillé"
+      },
+      "upload_rate": {
+        "name": "Débit d’upload simulé"
+      },
+      "download_rate": {
+        "name": "Débit de download simulé"
+      },
+      "total_torrent_size": {
+        "name": "Taille totale des torrents"
+      },
+      "uploaded": {
+        "name": "Upload simulé"
+      },
+      "downloaded": {
+        "name": "Download simulé"
+      }
+    },
+    "binary_sensor": {
+      "connected": {
+        "name": "Connecté"
+      }
+    }
+  }
+}

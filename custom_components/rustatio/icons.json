@@ -1,0 +1,42 @@
+{
+  "entity": {
+    "sensor": {
+      "managed_torrents": {
+        "default": "mdi:format-list-numbered"
+      },
+      "running_torrents": {
+        "default": "mdi:play-circle-outline"
+      },
+      "torrents_with_tracker_errors": {
+        "default": "mdi:alert-circle-outline"
+      },
+      "torrent_files": {
+        "default": "mdi:file-eye-outline"
+      },
+      "upload_rate": {
+        "default": "mdi:upload-network-outline"
+      },
+      "download_rate": {
+        "default": "mdi:download-network-outline"
+      },
+      "total_torrent_size": {
+        "default": "mdi:harddisk"
+      },
+      "uploaded": {
+        "default": "mdi:upload"
+      },
+      "downloaded": {
+        "default": "mdi:download"
+      }
+    },
+    "binary_sensor": {
+      "connected": {
+        "default": "mdi:server-network",
+        "state": {
+          "on": "mdi:server-network",
+          "off": "mdi:server-network-off"
+        }
+      }
+    }
+  }
+}

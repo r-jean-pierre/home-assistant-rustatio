@@ -1,0 +1,85 @@
+{
+  "title": "Rustatio",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Rustatio",
+        "description": "Connect Home Assistant to a Rustatio server. The suggested URL targets the local Rustatio Home Assistant app.",
+        "data": {
+          "base_url": "Rustatio URL",
+          "token": "API token (optional)"
+        },
+        "data_description": {
+          "base_url": "Base URL of the Rustatio server, without /api.",
+          "token": "Bearer token. Leave empty when AUTH_TOKEN is not enabled in Rustatio."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Rustatio",
+        "description": "Change the Rustatio server URL or API token.",
+        "data": {
+          "base_url": "Rustatio URL",
+          "token": "API token (optional)"
+        },
+        "data_description": {
+          "base_url": "Base URL of the Rustatio server, without /api.",
+          "token": "Bearer token. Leave empty when AUTH_TOKEN is not enabled in Rustatio."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Update Rustatio authentication",
+        "description": "Rustatio rejected the configured API token. Enter a valid token, or leave it empty if AUTH_TOKEN has been disabled in Rustatio.",
+        "data": {
+          "token": "API token (optional)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to Rustatio.",
+      "invalid_auth": "The API token was rejected by Rustatio.",
+      "invalid_response": "Rustatio returned an unexpected API response.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This Rustatio server is already configured.",
+      "reauth_successful": "Rustatio authentication was updated successfully.",
+      "reconfigure_successful": "Rustatio was reconfigured successfully."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "managed_torrents": {
+        "name": "Managed torrents"
+      },
+      "running_torrents": {
+        "name": "Running torrents"
+      },
+      "torrents_with_tracker_errors": {
+        "name": "Torrents with tracker errors"
+      },
+      "torrent_files": {
+        "name": "Torrent files in watch folder"
+      },
+      "upload_rate": {
+        "name": "Simulated upload rate"
+      },
+      "download_rate": {
+        "name": "Simulated download rate"
+      },
+      "total_torrent_size": {
+        "name": "Total torrent size"
+      },
+      "uploaded": {
+        "name": "Simulated uploaded"
+      },
+      "downloaded": {
+        "name": "Simulated downloaded"
+      }
+    },
+    "binary_sensor": {
+      "connected": {
+        "name": "Connected"
+      }
+    }
+  }
+}
