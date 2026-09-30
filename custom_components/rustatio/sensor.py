@@ -13,6 +13,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.const import UnitOfDataRate, UnitOfInformation
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import RustatioConfigEntry
@@ -45,6 +46,7 @@ SENSORS: tuple[RustatioSensorDescription, ...] = (
     RustatioSensorDescription(
         key="torrents_with_tracker_errors",
         translation_key="torrents_with_tracker_errors",
+        entity_category=EntityCategory.DIAGNOSTIC,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda data: data.torrents_with_tracker_errors,
     ),
