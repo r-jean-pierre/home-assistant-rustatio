@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from unittest.mock import AsyncMock
-
 import pytest
 
+from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import (
     ATTR_UNIT_OF_MEASUREMENT,
     STATE_OFF,
@@ -89,7 +88,7 @@ async def test_entities_become_unavailable_and_recover(
     """Test availability behavior when Rustatio disappears and returns."""
     mock_rustatio_api.summaries.side_effect = RustatioConnectionError("offline")
 
-    await setup_rustatio.runtime_data.async_request_refresh()
+    await setup_rustatio.runtime_data.async_refresh()
     await hass.async_block_till_done()
 
     assert (
@@ -101,20 +100,27 @@ async def test_entities_become_unavailable_and_recover(
     mock_rustatio_api.summaries.side_effect = None
     mock_rustatio_api.summaries.return_value = INSTANCE_SUMMARIES
 
-    await setup_rustatio.runtime_data.async_request_refresh()
+    await setup_rustatio.runtime_data.async_refresh()
     await hass.async_block_till_done()
 
     assert _state(hass, "sensor.rustatio_managed_torrents").state == "3"
     assert _state(hass, "binary_sensor.rustatio_connected").state == STATE_ON
 
 
-async def test_unload_removes_entities(
+async def test_unload_config_entry(
     hass: HomeAssistant,
     setup_rustatio: MockConfigEntry,
 ) -> None:
-    """Test that unloading the config entry removes its entities."""
+    """Test that the Rustatio config entry unloads cleanly."""
     assert await hass.config_entries.async_unload(setup_rustatio.entry_id)
     await hass.async_block_till_done()
 
-    assert hass.states.get("sensor.rustatio_managed_torrents") is None
-    assert hass.states.get("binary_sensor.rustatio_connected") is None
+    assert setup_rustatio.state is ConfigEntryState.NOT_LOADED
+
+    # HA may retain restored unavailable states after an entity platform unload.
+    # Their presence is therefore not evidence that the config entry failed
+    # to unload.
+    managed = hass.states.get("sensor.rustatio_managed_torrents")
+    if managed is not None:
+        assert managed.state == STATE_UNAVAILABLE
+        assert managed.attributes.get("restored") is True
