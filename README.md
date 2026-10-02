@@ -141,13 +141,13 @@ custom repository:
 6. Restart Home Assistant.
 7. Go to **Settings → Devices & services → Add integration → Rustatio**.
 
-For the companion local Rustatio Home Assistant app, the suggested server URL is:
+When using the Rustatio Home Assistant App, the integration is discovered
+automatically through Home Assistant Supervisor. No server URL needs to be
+entered manually.
 
-```text
-http://local-rustatio:8080
-```
-
-Leave the API token empty unless Rustatio is configured with `AUTH_TOKEN`.
+For a standalone Rustatio server, add the integration manually and enter the
+server URL. Leave the API token empty unless Rustatio is configured with
+`AUTH_TOKEN`.
 
 ## Manual installation
 

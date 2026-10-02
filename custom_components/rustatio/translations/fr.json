@@ -4,7 +4,7 @@
     "step": {
       "user": {
         "title": "Connexion à Rustatio",
-        "description": "Connecte Home Assistant à un serveur Rustatio. L’URL proposée cible l’app Rustatio locale de Home Assistant.",
+        "description": "Connecte Home Assistant à un serveur Rustatio. Avec l’app Rustatio pour Home Assistant, la découverte automatique est recommandée.",
         "data": {
           "base_url": "URL Rustatio",
           "token": "Jeton API (optionnel)"
@@ -42,6 +42,11 @@
     },
     "abort": {
       "already_configured": "Ce serveur Rustatio est déjà configuré.",
+      "invalid_discovery_info": "L’app Rustatio pour Home Assistant a fourni des informations de découverte invalides.",
+      "cannot_connect": "Impossible de joindre l’app Rustatio découverte.",
+      "invalid_auth": "L’app Rustatio découverte nécessite une authentification.",
+      "invalid_response": "L’app Rustatio découverte a renvoyé une réponse API inattendue.",
+      "unknown": "Erreur inattendue lors de la connexion à l’app Rustatio découverte.",
       "reauth_successful": "L’authentification Rustatio a été mise à jour.",
       "reconfigure_successful": "La configuration Rustatio a été mise à jour."
     }

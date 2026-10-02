@@ -9,6 +9,7 @@ import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.service_info.hassio import HassioServiceInfo
 from homeassistant.helpers.selector import (
     TextSelector,
     TextSelectorConfig,
@@ -50,6 +51,38 @@ class RustatioConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=_schema(DEFAULT_BASE_URL, ""),
             errors=errors,
+        )
+
+    async def async_step_hassio(
+        self,
+        discovery_info: HassioServiceInfo,
+    ) -> ConfigFlowResult:
+        """Handle discovery from the Rustatio Home Assistant App."""
+        host = discovery_info.config.get("host")
+        port = discovery_info.config.get("port")
+
+        if not host or not port:
+            return self.async_abort(reason="invalid_discovery_info")
+
+        base_url = f"http://{host}:{port}"
+        data = {
+            CONF_BASE_URL: base_url,
+            CONF_TOKEN: "",
+        }
+
+        self._async_abort_entries_match({CONF_BASE_URL: base_url})
+
+        await self.async_set_unique_id(discovery_info.uuid)
+        self._abort_if_unique_id_configured(
+            updates={CONF_BASE_URL: base_url}
+        )
+
+        if (error := await self._async_validate(data)) is not None:
+            return self.async_abort(reason=error)
+
+        return self.async_create_entry(
+            title="Rustatio",
+            data=data,
         )
 
     async def async_step_reconfigure(
