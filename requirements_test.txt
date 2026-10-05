@@ -1,5 +1,5 @@
 # Home Assistant 2026.9.4 test harness.
 # Version mapping:
 # pytest-homeassistant-custom-component 0.13.367 -> Home Assistant 2026.9.4
-pytest-homeassistant-custom-component==0.13.367
+pytest-homeassistant-custom-component==0.13.368
 pytest-cov>=7.1.0
